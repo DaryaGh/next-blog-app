@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  title     String
+  summary   String?
+  image     String?
+  content   String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // ارتباطات
+  categoryId Int? // اضافه کن
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  tags     Tag[]      @relation("BlogTags")
+  gallery  Gallery[]
+  blogTags BlogTags[]
+
+  @@map("blogs")
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  // Blog Blog[]
+  blogs    Blog[]     @relation("BlogTags")
+  blogTags BlogTags[]
+
+  @@map("tags")
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  blogs Blog[]
+
+  @@map("categories")
+}
+
+model Gallery {
+  id       Int    @id @default(autoincrement())
+  imageUrl String @map("image_url")
+  blogId   Int
+  blog     Blog   @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@map("blog_gallery")
+}
+
+model BlogTags {
+  blogId Int  @map("blog_id")
+  tagId  Int  @map("tag_id")
+  blog   Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  tag    Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([blogId, tagId])
+  @@map("blog_tags")
+}

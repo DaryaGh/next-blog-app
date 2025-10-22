@@ -1,0 +1,88 @@
+[
+  {
+    "id": 1,
+    "slug": "Nextjs-tutorial",
+    "title": "Getting Started with Next.js",
+    "summary": "Learn how to build apps with Next.js",
+    "image": "/images/blog-3.jpg",
+    "gallery": [
+      "/images/blog-4.jpg",
+      "/images/blog-5.jpg"
+    ],
+    "category": "Web Development",
+    "tags": [
+      "Next.js",
+      "React",
+      "Frontend"
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "Typescript-basics",
+    "title": "TypeScript Basics",
+    "summary": "A quick guide to TypeScript essentials",
+    "image": "/images/blog-2.jpg",
+    "gallery": [],
+    "category": "programming",
+    "tags": [
+      "TypeScript",
+      "Javascript"
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "Laravel-news",
+    "title": "Laravel Basics",
+    "summary": "A quick guide to Laravel essentials",
+    "image": "/images/blog-6.jpg",
+    "gallery": [],
+    "category": "Development",
+    "tags": [
+      "PHP",
+      "MySql",
+      "ORM"
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "Sql-joins",
+    "title": "Mastering SQL Joins",
+    "summary": "Understand INNER , LEFT , RIGHT , and FULL join",
+    "image": "/images/blog-6.jpg",
+    "gallery": [],
+    "category": "Database",
+    "tags": [
+      "SQL",
+      "Database",
+      "Backend"
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "React-hooks",
+    "title": "React Hooks Deep Dive",
+    "summary": "Explorer useState , useEffect, and custom hook",
+    "image": "/images/blog-5.jpg",
+    "gallery": [],
+    "category": "Web Development",
+    "tags": [
+      "React",
+      "JavaScript",
+      "FrontEnd"
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "Seo-nextjs",
+    "title": "Seo In Next.js",
+    "summary": "Best practices for SEO in next.js application",
+    "image": "/images/blog-6.jpg",
+    "gallery": [],
+    "category": "Development",
+    "tags": [
+      "SEO",
+      "Next.js",
+      "Web"
+    ]
+  }
+]
