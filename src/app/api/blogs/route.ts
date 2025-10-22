@@ -3,7 +3,6 @@ import {PrismaClient} from "@prisma/client"
 
 const prisma = new PrismaClient();
 
-
 export async function GET(){
    const blogs = await prisma.blog.findMany({
        include:{tags:true , gallery:true },
@@ -11,25 +10,35 @@ export async function GET(){
     return NextResponse.json(blogs)
 }
 
-export async function POST(request:NextRequest){
-    const body = await request.json();
-    const{slug,title,summary,image,category,content,tags}=body
+export async function POST(request: NextRequest) {
+        const body = await request.json();
+        const { slug, title, summary, image, categoryId, content, tagIds } = body;
 
-    const newBlog = await prisma.blog.create({
-        data:{
-            slug,
-            title,
-            content,
-            summary,
-            image,
-            category,
-            tags:{
-                connect:tags?.map((tag:{id:number})=>({id:tag.id}))||[]
+        if (!slug || !title) {
+            return NextResponse.json(
+                { error: "Slug and title are required" },
+                { status: 400 }
+            );
+        }
+        const newBlog = await prisma.blog.create({
+            data: {
+                slug,
+                title,
+                content,
+                summary,
+                image,
+                categoryId: categoryId ? Number(categoryId) : null,
+                tags: {
+                    connect: tagIds?.map((id: number) => ({ id })) || []
+                },
             },
-        },
-        include: {tags:true },
-    });
-    return NextResponse.json(newBlog,{status:201})
+            include: {
+                tags: true,
+                gallery: true,
+                category: true
+            },
+        });
+        return NextResponse.json(newBlog, { status: 201 });
 }
 
 export async function PUT(request:NextRequest){
@@ -40,12 +49,14 @@ export async function PUT(request:NextRequest){
         where: { id:Number(id)},
         data,
     });
-    return NextResponse.json(updateBlog);
+    return NextResponse.json(updateBlog,{status: 200});
 }
 
 export async function DELETE(request:NextRequest){
     const { searchParams} = new URL(request.url);
     const id = searchParams.get("id")
+
+    //Validate ID
 
     await prisma.blog.delete({
         where: {id:Number(id)},

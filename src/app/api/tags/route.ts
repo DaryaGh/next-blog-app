@@ -21,6 +21,7 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const {id, name} = body;
 
+    //Basic Validation
     if (!id || !name) {
         return NextResponse.json(
             {error: "Both id and name is required"},
@@ -28,11 +29,12 @@ export async function PUT(request: NextRequest) {
         );
     }
 
+    //Update Tag
+    //UPDATE tags set name = rew.name WHERE id = req.id
     const updatedTag = await prisma.tag.update({
         data: {id: id, name}
         , where: {id: id}
     });
-
     return NextResponse.json(updatedTag, {status: 200})
 }
 
@@ -40,6 +42,7 @@ export async function DELETE(request: NextRequest) {
     const body = await request.json();
     const {id} = body;
 
+    //Validate input
     if (!id) {
         return NextResponse.json(
             {error: "Tag id is required"},
@@ -47,6 +50,8 @@ export async function DELETE(request: NextRequest) {
         );
     }
 
+    //Delete the tag
+    //DELETE from tags WHERE id = req.id
     const deletedTag = await prisma.tag.delete({
         where: {id},
     });
